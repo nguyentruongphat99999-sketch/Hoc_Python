@@ -1,4 +1,6 @@
-cau_van = input("nhap cau van: ")
-print("do dai cua cau van la: ", len(cau_van))
-ky_tu_muon_dem = input("nhap ky tu muon dem:")
-print(cau_van.count(ky_tu_muon_dem))
+email = input("khai bao email:")
+vi_tri_ten = email.find("@")
+ten_nguoi_dung = email[:vi_tri_ten]
+ten_mien = email[vi_tri_ten + 1:]
+print("ten nguoi dung la:",ten_nguoi_dung)
+print("ten mien la:",ten_mien)
