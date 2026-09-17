@@ -1,3 +1,5 @@
+so_lan_sai = 0
+so_lan_nhap_con_lai = 3
 while True:
     email = input("khai bao email:").strip().lower()
     if "@" in email:
@@ -8,4 +10,9 @@ while True:
             print(f"ten mien la:{ten_mien}")
             print(f"ten nguoi dung la:{ten_nguoi_dung}")
             break
-    print("email ko hop le vui long nhap lai(vui long kiem tra coi co @ va .) \n")
+    so_lan_sai = so_lan_sai+1
+    so_lan_nhap_con_lai= so_lan_nhap_con_lai-1
+    print(f"email ko hop le vui long nhap lai(vui long kiem tra coi co @ va .) ban con {so_lan_nhap_con_lai} lan nhap  \n")
+    if so_lan_sai == 3:
+        print("tai khoan cua ban da bi khoa")
+        break
