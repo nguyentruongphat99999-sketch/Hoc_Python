@@ -14,8 +14,9 @@ so_lan_nhap_con_lai=3
 while True:
     email_nguoi_dung = input("khai bao email:").strip().lower()
     mat_khau_nguoi_dung = input("khai bao mat khau(vui long nhap du 6 ky tu):")
-    is_valid = kiem_tra_email(email_nguoi_dung) and kiem_tra_mat_khau(mat_khau_nguoi_dung)
-    if is_valid == True:
+    is_valid = kiem_tra_email(email_nguoi_dung)
+    is_valid_mk = kiem_tra_mat_khau(mat_khau_nguoi_dung)
+    if is_valid and is_valid_mk == True:
         print ("ban da dang nhap thanh cong")
         break
     so_lan_sai = so_lan_sai+1
@@ -23,4 +24,11 @@ while True:
     if so_lan_sai==3:
         print("tai khoan cua ban da bi khoa")
         break
-    print(f"email ko hop le hoac mat khau khong dung vui long nhap lai(vui long kiem tra coi co @ va .) ban con {so_lan_nhap_con_lai} lan nhap  \n")
+    if not is_valid and not is_valid_mk:
+         print(f"email va mat khau khong hop le ban con {so_lan_nhap_con_lai} lan nhap  \n")
+    elif not is_valid:
+        print(f"email ko hop le(vui long kiem tra coi co @ va .) ban con {so_lan_nhap_con_lai} lan nhap  \n")
+    else:
+        print(f"mat khau ko hop le(vui long kiem tra coi du 6 ky tu chua) ban con {so_lan_nhap_con_lai} lan nhap  \n")
+   
+         
