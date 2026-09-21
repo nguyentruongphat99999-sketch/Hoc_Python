@@ -8,12 +8,20 @@ def kiem_tra_email(email_nhap_vao):
 danh_sach_email = []
 print("=== he thong quan ly danh sach email ===")
 print("(nhap 'quanly' bat ky luc nao de xem va dung danh sach)")
+print("(nhap 'xoa' de xoa email trong danh sach)")
 while True:
     email_nguoi_dung = input("khai bao email:").strip().lower()
     if email_nguoi_dung == "quanly":
         print("-> thanh cong! da thoat che do nhap")
         break
-    if kiem_tra_email(email_nguoi_dung):
+    elif email_nguoi_dung == "xoa":
+        email_can_xoa = input("nhap email can xoa:").strip().lower()
+        if email_can_xoa in danh_sach_email:
+            danh_sach_email.remove(email_can_xoa)
+            print(f"-> da xoa thanh cong {email_can_xoa} ")
+        else:
+            print(f"khong tim thay {email_can_xoa} can xoa")
+    elif kiem_tra_email(email_nguoi_dung):
         if email_nguoi_dung in danh_sach_email:
             print("email nay da ton tai")
         else:
