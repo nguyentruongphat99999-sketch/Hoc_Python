@@ -5,32 +5,63 @@ def kiem_tra_email(email_nhap_vao):
         if "." in ten_mien:
             return True
     return False
+def kiem_tra_mat_khau(mat_khau_nhap_vao):
+    return len(mat_khau_nhap_vao) >= 6 
+        
 danh_sach_email = []
 print("=== he thong quan ly danh sach email ===")
-print("(nhap 'quanly' bat ky luc nao de xem va dung danh sach)")
-print("(nhap 'xoa' de xoa email trong danh sach)")
+print("(nhap 'quanly' de dung nhap 'xoa' de xoa email nhap 'them' de them email")
 while True:
-    email_nguoi_dung = input("khai bao email:").strip().lower()
-    if email_nguoi_dung == "quanly":
+    lenh = input("nhap lenh dieu khien:")
+    if lenh == "quanly":
         print("-> thanh cong! da thoat che do nhap")
         break
-    elif email_nguoi_dung == "xoa":
-        email_can_xoa = input("nhap email can xoa:").strip().lower()
-        if email_can_xoa in danh_sach_email:
-            danh_sach_email.remove(email_can_xoa)
-            print(f"-> da xoa thanh cong {email_can_xoa} ")
+    elif lenh == "them":
+        email_nguoi_dung = input("nhap email:").strip().lower()
+        mat_khau_nguoi_dung = input("nhap mat khau:").lower()
+        is_valid_email = kiem_tra_email(email_nguoi_dung)
+        is_valid_mk = kiem_tra_mat_khau(mat_khau_nguoi_dung)
+        if is_valid_email and is_valid_mk:
+            da_ton_tai = False
+            for tk in danh_sach_email:
+                if tk["email"] == email_nguoi_dung:
+                    da_ton_tai = True
+                    break
+            if da_ton_tai:
+                print("email nay da ton tai trong he thong")
+            else:
+                tai_khoan_moi ={
+                    "email": email_nguoi_dung,
+                    "mat_khau": mat_khau_nguoi_dung,
+                }
+                danh_sach_email.append(tai_khoan_moi)
+                print(f"da them tai khoan {email_nguoi_dung} thanh cong!\n")
+        elif not is_valid_email and not is_valid_mk:
+            print("-> email va mat khau deu khong hop le (email can @ va . , mat khau >= 6)\n")
+        elif not is_valid_email:
+            print("-> email khong hop le(email can @ va .)\n")
         else:
-            print(f"khong tim thay {email_can_xoa} can xoa")
-    elif kiem_tra_email(email_nguoi_dung):
-        if email_nguoi_dung in danh_sach_email:
-            print("email nay da ton tai")
+            print("-> mat khau khong hop le(phai du tu 6 ky tu tro len)\n")
+    elif lenh == "xem":
+        print("\n---DANH SACH TAI KHOAN CHI TIET---")
+        if len(danh_sach_email) ==0:
+            print("->danh sach hien dang rong!\n")
         else:
-            danh_sach_email.append(email_nguoi_dung)
-            print("-> da them email vao danh sach")
+            for stt,tk in enumerate(danh_sach_email,1):
+                print (f"{stt}.email:{tk['email']} | mat khau: {tk['mat_khau']}")
+            print()
+    elif lenh == "xoa":
+        email_can_xoa = input("nhap email can xoa:").strip()
+        da_xoa = False
+        for tk in danh_sach_email:
+            if tk["email"]== email_can_xoa:
+                danh_sach_email.remove(tk)
+                print(f"-> da xoa thanh cong {email_can_xoa}")
+                da_xoa = True
+                break
+        if not da_xoa:
+            print(f"khong tim thay{email_can_xoa} trong danh sach")
     else:
-        print(f"email ko hop le(vui long kiem tra coi co @ va .) \n")
+        print("-> Lenh khong hop le! Vui long nhap 'them', 'xem', 'xoa' hoac 'quanly'\n")
 print("=" * 40)
-print(f"tong so email da luu: {len(danh_sach_email)}")
-print("danh sach chi tiet")
-for stt,email in enumerate(danh_sach_email,1):
-    print(f"{stt}.{email}")
+print(f"Tong so tai khoan dang quan ly: {len(danh_sach_email)}")
